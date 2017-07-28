@@ -18,16 +18,18 @@ class LoginAPI(View):
 
 class CaseListAPI(View):
     def get(self, request):
-        patient_id = request.GET.get('patient')
+        patient_id = request.GET.get('patient_id')
 
         try:
-            patient = models.Patient.objects.get(id=patient_id)
+            patient = models.Patient.objects.get(id=int(patient_id))
         except models.Patient.DoesNotExist:
             return responses.Http401()
         cases = models.Case.objects.filter(patient=patient)
 
+        serializer = serializers.CaseSerializer(cases)
+
         return JsonResponse({
-            'cases': serializers.CaseSerializer(cases).serialize(),
+            'cases': serializer.serialize(),
             'count': len(cases)
         })
 
