@@ -25,7 +25,7 @@ SECRET_KEY = 'ivseb=(+sa9_4!2hvby=#-&9$s9=+oyf9*9lao%s2m30fargb^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
