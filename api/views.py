@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.views import View
 
 from records import models
-from . import responses
+from . import responses, serializers
 
 class LoginAPI(View):
     def get(self, request):
@@ -25,7 +25,11 @@ class CaseListAPI(View):
         except models.Patient.DoesNotExist:
             return responses.Http401()
         cases = models.Case.objects.filter(patient=patient)
-        return JsonResponse({'cases': cases, 'count': len(cases)})
+
+        return JsonResponse({
+            'cases': serializers.CaseSerializer(cases).serialize(),
+            'count': len(cases)
+        })
 
 
 class CaseDetailAPI(View):
