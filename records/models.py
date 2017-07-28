@@ -45,6 +45,10 @@ class Document(models.Model):
     def __str__(self):
         return self.text or "patient document"
 
+    def serialize(self):
+        url = self.upload.url if self.upload else None
+        return dict(text=self.text, url=url)
+
 
 class Record(models.Model):
     case = models.ForeignKey(Case, related_name="records")

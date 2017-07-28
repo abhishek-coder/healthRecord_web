@@ -26,7 +26,7 @@ class CaseListAPI(View):
             return responses.Http401()
         cases = models.Case.objects.filter(patient=patient)
 
-        serializer = serializers.CaseSerializer(cases)
+        serializer = serializers.CaseListSerializer(cases)
 
         return JsonResponse({
             'cases': serializer.serialize(),
@@ -36,4 +36,18 @@ class CaseListAPI(View):
 
 class CaseDetailAPI(View):
     def get(self, request):
-        return JsonResponse({'case': dict()})
+        patient_id = request.GET.get('patient_id')
+
+        try:
+            patient = models.Patient.objects.get(id=int(patient_id))
+        except models.Patient.DoesNotExist:
+            return responses.Http401()
+
+        case_id = request.GET.get('case_id')
+        case = models.Case.objects.get(patient=patient, id=int(case_id))
+
+        serializer = serializers.CaseDetailSerializer(case)
+
+        return JsonResponse({
+            'case': serializer.serialize()
+        })
