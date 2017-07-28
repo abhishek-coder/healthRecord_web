@@ -13,7 +13,7 @@ class LoginAPI(View):
             )
         except models.Patient.DoesNotExist:
             return responses.Http401()
-        return JsonResponse({'login': 'success'})
+        return JsonResponse({'patient_id': patient.id, 'name': str(patient)})
 
 
 class CaseListAPI(View):
