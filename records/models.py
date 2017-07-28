@@ -10,8 +10,17 @@ class UserAadhar(models.Model):
         return self.user.name
 
 
+class Patient(models.Model):
+    user = models.OneToOneField(User)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.get_full_name()
+
+
 class Doctor(models.Model):
     user = models.OneToOneField(User)
+    created = models.DateTimeField(auto_now_add=True)
     specialities = models.TextField(blank=True, null=True)
 
     def __str__(self):
@@ -20,7 +29,7 @@ class Doctor(models.Model):
 
 class Case(models.Model):
     title = models.TextField()
-    patient = models.ForeignKey(User, related_name="cases")
+    patient = models.ForeignKey(Patient, related_name="cases")
     doctor = models.ForeignKey(Doctor, related_name="cases")
     created = models.DateTimeField(auto_now_add=True)
     notes = models.TextField(blank=True, null=True)
@@ -59,7 +68,7 @@ class RecordACL(models.Model):
 
 
 class Test(models.Model):
-    patient = models.ForeignKey(User, related_name="tests")
+    patient = models.ForeignKey(Patient, related_name="tests")
     case = models.ForeignKey(
         Case, related_name="linked_tests", blank=True, null=True)
     name = models.CharField(max_length=255)
