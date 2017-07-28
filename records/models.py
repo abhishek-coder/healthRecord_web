@@ -7,7 +7,7 @@ class UserAadhar(models.Model):
     number = models.CharField(max_length=15)
 
     def __str__(self):
-        return self.user.name
+        return self.user.get_full_name()
 
 
 class Patient(models.Model):
@@ -40,7 +40,7 @@ class Case(models.Model):
 
 class Document(models.Model):
     text = models.TextField(blank=True, null=True)
-    upload = models.FileField(upload_to='docs', null=True)
+    upload = models.FileField(upload_to='docs', blank=True, null=True)
 
     def __str__(self):
         return self.text or "patient document"
