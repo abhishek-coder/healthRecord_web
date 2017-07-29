@@ -52,23 +52,26 @@ def patient_connect(request):
 @login_required
 def patient_detail(request, patient_id):
     patient = models.Patient.objects.get(id=patient_id)
-    return render(request, 'patient_detail.tpl', {'patient': patient})
+
+    return render(request, 'patient_detail.tpl', {
+        'patient': patient,
+        'aadhar_data': patient.user.useraadhar
+    })
 
 
 def history(request, patient_id):
-    if request.method == 'GET':
-        try:
-            patient = models.Patient.objects.get(id=int(patient_id))
-            patient_name = patient.user.get_full_name()
-        except models.Patient.DoesNotExist:
-            raise Http404
-        cases = models.Case.objects.filter(patient=patient)
-    return render(request, 'history.html', {'patient_name': patient_name, 'cases': cases})
+    patient = models.Patient.objects.get(id=int(patient_id))
+    patient_name = patient.user.get_full_name()
+    aadhar_data = patient.user.useraadhar
 
+    return render(request, 'patient_history.tpl', {
+        'patient': patient,
+        'aadhar_data': patient.user.useraadhar,
+        'cases': patient.cases.all()
+    })
 
 def new_case(request, patient_id):
-    import pdb;
-    pdb.set_trace()
+    patient = models.Patient.objects.get(id=int(patient_id))
     if request.method == 'POST':
         form = forms.NewCaseForm(request.POST, request.FILES)
         if form.is_valid():
@@ -93,5 +96,4 @@ def new_case(request, patient_id):
             models.Record.objects.create(case=case, prescription=document, symptoms=symptoms)
     else:
         form = forms.NewCaseForm()
-    return render(request, 'newcase.html', {'form': form, 'patient_id':patient_id})
-
+    return render(request, 'newcase.html', {'form': form, 'patient':patient})
