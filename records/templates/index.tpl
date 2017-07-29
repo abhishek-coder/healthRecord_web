@@ -1,7 +1,7 @@
 {% extends '__layout.tpl' %}
 
 {% block title %}
-  Find patients | {{ block.super }}
+  Doctor Login | {{ block.super }}
 {% endblock %}
 
 {% block content %}
