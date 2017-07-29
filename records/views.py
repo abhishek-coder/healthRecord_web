@@ -1,6 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+
+from records import forms
+from records import models
+from django.http import HttpResponseRedirect, HttpResponse, Http404
+
 
 from . import auth, forms, models
 
@@ -38,6 +42,7 @@ def patient_connect(request):
             if patient:
                 return redirect('patient_detail', kwargs={'patient_id': patient.id})
         return render(request, 'aadharentry.html', {'form': form, 'error': True})
+
     else:
         form = forms.PatientConnectForm()
 
@@ -49,8 +54,24 @@ def patient_detail(request, patient_id):
     if request.method == 'POST':
         form = forms.ProfileDetailForm(request.POST)
         if form.is_valid():
-            return HttpResponseRedirect('/done/')
+            # update database
+            return HttpResponse('done')
     else:
         form = forms.ProfileDetailForm()
 
     return render(request, 'profile.html', {'form': form, 'patient_id': patient_id})
+
+
+def history(request, patient_id):
+    if request.method == 'GET':
+        try:
+            patient = models.Patient.objects.get(id=int(patient_id))
+            patient_name = patient.user.get_full_name()
+        except models.Patient.DoesNotExist:
+            raise Http404
+        cases = models.Case.objects.filter(patient=patient)
+    return render(request, 'history.html', {'patient_name': patient_name, 'cases': cases})
+
+
+def new_case(request, patient_id):
+    return render(request, 'newcase.html')

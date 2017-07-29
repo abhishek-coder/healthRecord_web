@@ -11,7 +11,6 @@ class DoctorLoginForm(forms.Form):
 
 
 class ProfileDetailForm(forms.Form):
-    image = forms.ImageField()
     age = forms.IntegerField()
-    sex = forms.CharField(max_length=1)
+    gender = forms.CharField(max_length=1)
     state = forms.CharField(max_length=30)
