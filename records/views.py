@@ -20,7 +20,7 @@ def doctor_login(request):
     else:
         form = forms.DoctorLoginForm()
 
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'doctor_login.tpl', {'form': form})
 
 
 def patient_connect(request):
@@ -48,6 +48,3 @@ def patient_detail(request, patient_id):
         form = forms.ProfileDetailForm()
 
     return render(request, 'profile.html', {'form': form, 'patient_id': patient_id})
-
-
-

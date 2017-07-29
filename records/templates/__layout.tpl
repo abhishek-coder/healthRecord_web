@@ -44,18 +44,19 @@
     </div>
   </div>
 
-  {% if request.user.is_authenticated %}
-    <div class="page-content">
-      <div class="row">
+  <div class="page-content">
+    <div class="row">
+      {% if request.user.is_authenticated %}
         <div class="col-md-2">
           {% include '_sidebar.tpl' %}
         </div>
+      {% endif %}
 
-        {% block content %}
-        {% endblock %}
-      </div>
+      {% block content %}
+      {% endblock %}
     </div>
-  {% endif %}
+  </div>
+
 
   <!--footer>
     <div class="container">

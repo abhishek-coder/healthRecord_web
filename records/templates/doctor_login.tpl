@@ -15,7 +15,7 @@
               <div class="social">
 
               </div>
-              <form action="" method="POST">
+              <form action="{% url 'doctor_login' %}" method="POST">
                 {% csrf_token %}
                 <input class="form-control" name="username" type="text"
                        placeholder="Username">
