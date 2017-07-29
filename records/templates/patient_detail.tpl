@@ -5,15 +5,28 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
-  <div class="col-md-4"> </div>
-  <div class="col-md-8">
-    <form action="" method="POST">
-      {% csrf_token %}
-      <p>{{ form }}</p>
-      <input type="submit" value="Submit" />
-    </form>
+  <div>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Case ID</th>
+            <th>Doctor</th>
+            <th>First consultation</th>
+            <th>Title</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in patient.cases.all %}
+            <tr>
+              <td>#{{ c.id }}</td>
+              <td>{{ c.doctor }}</td>
+              <td>{{ c.created }}</td>
+              <td class="center">{{ c.title }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
-
 {% endblock %}

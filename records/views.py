@@ -51,15 +51,8 @@ def patient_connect(request):
 
 @login_required
 def patient_detail(request, patient_id):
-    if request.method == 'POST':
-        form = forms.ProfileDetailForm(request.POST)
-        if form.is_valid():
-            # update database
-            return HttpResponse('done')
-    else:
-        form = forms.ProfileDetailForm()
-
-    return render(request, 'patient_detail.tpl', {'form': form, 'patient_id': patient_id})
+    patient = models.Patient.objects.get(id=patient_id)
+    return render(request, 'patient_detail.tpl', {'patient': patient})
 
 
 def history(request, patient_id):

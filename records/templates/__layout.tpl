@@ -52,8 +52,10 @@
         </div>
       {% endif %}
 
-      {% block content %}
-      {% endblock %}
+      <div class="col-md-10">
+        {% block content %}
+        {% endblock %}
+      </div>
     </div>
   </div>
 
