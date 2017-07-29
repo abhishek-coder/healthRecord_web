@@ -1,0 +1,13 @@
+{% extends '__base.html' %}
+
+{% block title %}
+  Patient Health Records
+{% endblock %}
+
+{% block body %}
+<form action="{% url 'aadharentry' %}" method="POST">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="Submit" />
+</form>
+{% endblock %}
