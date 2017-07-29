@@ -15,6 +15,3 @@ class ProfileDetailForm(forms.Form):
     age = forms.IntegerField()
     sex = forms.CharField(max_length=1)
     state = forms.CharField(max_length=30)
-
-
-
