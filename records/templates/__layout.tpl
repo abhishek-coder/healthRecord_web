@@ -44,22 +44,24 @@
     </div>
   </div>
 
-  <div class="page-content">
-    <div class="row">
-      <div class="col-md-2">
-        {% include '_sidebar.tpl' %}
+  {% if request.user.is_authenticated %}
+    <div class="page-content">
+      <div class="row">
+        <div class="col-md-2">
+          {% include '_sidebar.tpl' %}
+        </div>
+
+        {% block content %}
+        {% endblock %}
       </div>
-
-      {% block content %}
-      {% endblock %}
     </div>
-  </div>
+  {% endif %}
 
-  <footer>
+  <!--footer>
     <div class="container">
       <div class="copy text-center">
         Copyright 2017 <a href='#'>Quick-5</a>
       </div>
     </div>
-  </footer>
+  </footer-->
 {% endblock %}
