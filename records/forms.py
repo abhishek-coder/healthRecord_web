@@ -22,5 +22,3 @@ class NewCaseForm(forms.Form):
     notes = forms.CharField(max_length=100)
     symptoms = forms.CharField(max_length=100)
     prescription = forms.CharField(max_length=100)
-
-

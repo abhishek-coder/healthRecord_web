@@ -13,7 +13,8 @@
 
   <div class="col-md-4">
     <h3>Create new case </h3>
-    <form action="{% url 'new_case' patient.id %}" method="POST">
+    <form action="{% url 'new_case' patient.id %}" method="POST"
+          enctype="multipart/form-data">
       {% csrf_token %}
       <div class="form-group">
         <label>Title</label>
