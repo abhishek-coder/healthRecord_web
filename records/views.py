@@ -40,13 +40,13 @@ def patient_connect(request):
             patient = auth.authenticate_patient_with_aadhar(
                 request.user.doctor, aadhar_no)
             if patient:
-                return redirect('patient_detail', kwargs={'patient_id': patient.id})
-        return render(request, 'aadharentry.html', {'form': form, 'error': True})
+                return redirect('patient_detail', patient_id=patient.id)
+        return render(request, 'patient_connect.tpl', {'form': form, 'error': True})
 
     else:
         form = forms.PatientConnectForm()
 
-    return render(request, 'aadharentry.html', {'form': form})
+    return render(request, 'patient_connect.tpl', {'form': form})
 
 
 @login_required
@@ -59,7 +59,7 @@ def patient_detail(request, patient_id):
     else:
         form = forms.ProfileDetailForm()
 
-    return render(request, 'profile.html', {'form': form, 'patient_id': patient_id})
+    return render(request, 'patient_detail.tpl', {'form': form, 'patient_id': patient_id})
 
 
 def history(request, patient_id):
