@@ -113,10 +113,13 @@ def new_case(request, patient_id):
             except models.Patient.DoesNotExist:
                 raise Http404
             # Create Entry for a new case
-            case = models.Case.objects.create(patient=patient, doctor=doctor, title=title, notes=notes)
+            case = models.Case.objects.create(
+                patient=patient, doctor=doctor, title=title, notes=notes)
+            document = models.Document.objects.create(
+                text=prescription, upload=document_doc)
+            models.Record.objects.create(
+                case=case, prescription=document, symptoms=symptoms)
+            return redirect('case_detail', patient_id=patient_id, case_id=case.id)
 
-            document = models.Document.objects.create(text=prescription, upload=document_doc)
-            models.Record.objects.create(case=case, prescription=document, symptoms=symptoms)
-    else:
-        form = forms.NewCaseForm()
-    return render(request, 'newcase.html', {'form': form, 'patient':patient})
+    # Return template if get request
+    return render(request, 'new_case.tpl', {'patient':patient})

@@ -36,7 +36,7 @@
           {% for r in case.records.all %}
             <tr>
               <td>#{{ r.id }}</td>
-              <td>{{ r.symptoms.text }}</td>
+              <td>{{ r.symptoms }}</td>
               <td>
                 {{ r.prescription.text }}
                 {% if r.prescription.upload %}
