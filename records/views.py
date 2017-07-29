@@ -14,6 +14,10 @@ def index(request):
 
 
 def doctor_login(request):
+    # If user is logged-in and user is a doctor, redirect to home page
+    if request.user.is_authenticated() and hasattr(request.user, 'doctor'):
+        return redirect('patient_connect')
+
     if request.method == 'POST':
         form = forms.DoctorLoginForm(request.POST)
         if form.is_valid():
@@ -59,6 +63,7 @@ def patient_detail(request, patient_id):
     })
 
 
+@login_required
 def history(request, patient_id):
     patient = models.Patient.objects.get(id=int(patient_id))
     patient_name = patient.user.get_full_name()
@@ -70,6 +75,21 @@ def history(request, patient_id):
         'cases': patient.cases.all()
     })
 
+
+@login_required
+def case_detail(request, patient_id, case_id):
+    patient = models.Patient.objects.get(id=int(patient_id))
+    case = patient.cases.get(id=case_id)
+    aadhar_data = patient.user.useraadhar
+
+    return render(request, 'case_detail.tpl', {
+        'patient': patient,
+        'aadhar_data': patient.user.useraadhar,
+        'case': case
+    })
+
+
+@login_required
 def new_case(request, patient_id):
     patient = models.Patient.objects.get(id=int(patient_id))
     if request.method == 'POST':
