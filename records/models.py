@@ -5,6 +5,7 @@ from django.db import models
 class UserAadhar(models.Model):
     user = models.OneToOneField(User)
     age = models.IntegerField(blank=True, null=True)
+    photo = models.CharField(max_length=1000, blank=True, null=True)
     gender = models.CharField(max_length=1, blank=True, null=True)
     state = models.CharField(max_length=20, blank=True, null=True)
     number = models.CharField(max_length=15)
