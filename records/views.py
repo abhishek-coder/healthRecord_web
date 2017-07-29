@@ -67,17 +67,30 @@ def history(request, patient_id):
 
 
 def new_case(request, patient_id):
-
+    import pdb;
+    pdb.set_trace()
     if request.method == 'POST':
-        form = forms.NewCaseForm()
+        form = forms.NewCaseForm(request.POST, request.FILES)
         if form.is_valid():
-        #    import pdb; pdb.set_trace()
             title = form.cleaned_data['title']
             notes = form.cleaned_data['notes']
             symptoms = form.cleaned_data['notes']
-            prescriptions = form.cleaned_data['prescription']
-            document = form.cleaned_data['document']
+            prescription = form.cleaned_data['prescription']
+            document_doc = form.cleaned_data['document']
 
+            try:
+                doctor = request.user.doctor
+            except:
+                 raise Http404()
+            try:
+                patient = models.Patient.objects.get(id=int(patient_id))
+            except models.Patient.DoesNotExist:
+                raise Http404
+            # Create Entry for a new case
+            case = models.Case.objects.create(patient=patient, doctor=doctor, title=title, notes=notes)
+
+            document = models.Document.objects.create(text=prescription, upload=document_doc)
+            models.Record.objects.create(case=case, prescription=document, symptoms=symptoms)
     else:
         form = forms.NewCaseForm()
     return render(request, 'newcase.html', {'form': form, 'patient_id':patient_id})

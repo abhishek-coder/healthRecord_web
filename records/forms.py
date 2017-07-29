@@ -19,8 +19,8 @@ class ProfileDetailForm(forms.Form):
 class NewCaseForm(forms.Form):
     title = forms.CharField(max_length=50)
     document = forms.FileField(required=False)
-    notes = forms.CharField()
-    symptoms = forms.CharField()
-    Prescription = forms.CharField()
+    notes = forms.CharField(max_length=100)
+    symptoms = forms.CharField(max_length=100)
+    prescription = forms.CharField(max_length=100)
 
 
