@@ -67,4 +67,18 @@ def history(request, patient_id):
 
 
 def new_case(request, patient_id):
-    return render(request, 'newcase.html')
+
+    if request.method == 'POST':
+        form = forms.NewCaseForm()
+        if form.is_valid():
+        #    import pdb; pdb.set_trace()
+            title = form.cleaned_data['title']
+            notes = form.cleaned_data['notes']
+            symptoms = form.cleaned_data['notes']
+            prescriptions = form.cleaned_data['prescription']
+            document = form.cleaned_data['document']
+
+    else:
+        form = forms.NewCaseForm()
+    return render(request, 'newcase.html', {'form': form, 'patient_id':patient_id})
+

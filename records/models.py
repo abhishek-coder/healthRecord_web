@@ -4,6 +4,9 @@ from django.db import models
 
 class UserAadhar(models.Model):
     user = models.OneToOneField(User)
+    age = models.IntegerField(blank=True, null=True)
+    gender = models.CharField(max_length=1, blank=True, null=True)
+    state = models.CharField(max_length=20, blank=True, null=True)
     number = models.CharField(max_length=15)
 
     def __str__(self):
@@ -52,7 +55,7 @@ class Document(models.Model):
 
 class Record(models.Model):
     case = models.ForeignKey(Case, related_name="records")
-    symptoms = models.ForeignKey(Document, related_name="symptoms")
+    symptoms = models.TextField()
     prescription = models.ForeignKey(Document, related_name="prescriptions")
 
     created = models.DateTimeField(auto_now_add=True)
