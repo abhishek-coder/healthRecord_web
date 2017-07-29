@@ -10,6 +10,9 @@ from . import auth, forms, models
 
 
 def index(request):
+    # If user is logged-in and user is a doctor, redirect to home page
+    if request.user.is_authenticated() and hasattr(request.user, 'doctor'):
+        return redirect('patient_connect')
     return render(request, 'index.tpl')
 
 

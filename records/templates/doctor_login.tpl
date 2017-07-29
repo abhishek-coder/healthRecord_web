@@ -11,10 +11,7 @@
         <div class="login-wrapper">
           <div class="box">
             <div class="content-wrap">
-              <h6>Sign In | Doctors on Health+</h6>
-              <div class="social">
-
-              </div>
+              <h6>Doctor Log In</h6>
               <form class="form-group {% if error%}has-error{% endif %}"
                     action="{% url 'doctor_login' %}" method="POST">
                 {% csrf_token %}
