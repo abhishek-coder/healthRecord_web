@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 
@@ -18,7 +19,7 @@ def doctor_login(request):
             if logged_in:
                 return redirect('patient_connect')
         return render(request, 'doctor_login.tpl', {
-            'form': form, 'error': "Invalid credentails"
+            'form': form, 'error': True
         })
     else:
         form = forms.DoctorLoginForm()
@@ -26,22 +27,24 @@ def doctor_login(request):
     return render(request, 'doctor_login.tpl', {'form': form})
 
 
+@login_required
 def patient_connect(request):
     if request.method == 'POST':
         form = forms.PatientConnectForm(request.POST)
         if form.is_valid():
             aadhar_no = form.cleaned_data['aadhar_number']
-            if aadhar_no:
-                """ aadhar API authentication, this will provide patient_id """
-                patient_id = 2
-
-            return redirect('patient_detail', kwargs={'patient_id': patient_id})
+            patient = auth.authenticate_patient_with_aadhar(
+                request.user.doctor, aadhar_no)
+            if patient:
+                return redirect('patient_detail', kwargs={'patient_id': patient.id})
+        return render(request, 'aadharentry.html', {'form': form, 'error': True})
     else:
         form = forms.PatientConnectForm()
 
     return render(request, 'aadharentry.html', {'form': form})
 
 
+@login_required
 def patient_detail(request, patient_id):
     if request.method == 'POST':
         form = forms.ProfileDetailForm(request.POST)
