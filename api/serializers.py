@@ -29,7 +29,7 @@ class CaseDetailSerializer(object):
 
             records=[
                 dict(
-                    symptoms=r.symptoms.serialize(),
+                    symptoms=r.symptoms,
                     prescription=r.prescription.serialize(),
                     created=str(r.created)
                 ) for r in c.records.all()]
