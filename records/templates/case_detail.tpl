@@ -11,6 +11,9 @@
       Create new case</a>
   </div>
 
+  <div><button onclick="goBack()">Go Back</button>
+ </div>
+
   <div class="col-md-offset-2 col-md-4">
 
   </div>
@@ -52,3 +55,10 @@
     </div>
   </div>
 {% endblock %}
+
+
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>

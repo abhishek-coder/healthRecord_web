@@ -42,9 +42,16 @@
 
       <div class="form-group">
         <label>Upload Prescription</label>
-        <input name="document" type="file">
+        <input  name="document" type="file">
       </div>
 
       <button type="submit" class="btn btn-primary">Create case</button>
+      <button class="btn btn-primary" onclick="goBack()">Go Back</button>
   </div>
+
+    <script>
+    function goBack() {
+        window.history.back();
+    }
+    </script>
 {% endblock %}
