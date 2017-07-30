@@ -10,7 +10,7 @@ class CaseListSerializer(object):
             id=c.id,
             title=c.title,
             doctor_name=str(c.doctor),
-            date=str(c.created)
+            date=c.created.strftime("%Y-%m-%d %I:%M %p")
         ) for c in self.queryset]
 
 
@@ -31,6 +31,6 @@ class CaseDetailSerializer(object):
                 dict(
                     symptoms=r.symptoms,
                     prescription=r.prescription.serialize(),
-                    created=str(r.created)
+                    created=r.created.strftime("%Y-%m-%d %I:%M %p")
                 ) for r in c.records.all()]
         )

@@ -5,22 +5,14 @@
 {% endblock %}
 
 {% block content %}
-  <div class="col-md-4">
+  <div class="col-md-12">
     {% include '_user.tpl' %}
     <a class="btn btn-success " href="{% url 'new_case' patient.id %}">
       Create new case</a>
-      &nbsp;
-       <button class="btn btn-success" onclick="goBack()">Go Back</button>
-  </div>
-
-<script>
-function goBack() {
-    window.history.back();
-}
-</script>
-
-  <div class="col-md-offset-2 col-md-4">
-
+    &nbsp;
+    <a class="btn btn-success" href="{% url 'patient_detail' patient.id %}">
+      Patient detail
+    </a>
   </div>
 
   <div class="col-md-12">
@@ -60,4 +52,3 @@ function goBack() {
     </div>
   </div>
 {% endblock %}
-
