@@ -42,7 +42,7 @@
 
       <div class="form-group">
         <label>Upload Prescription</label>
-        <input  name="Document" type="file">
+        <input  name="document" type="file">
       </div>
 
       <button type="submit" class="btn btn-primary">Create case</button>
