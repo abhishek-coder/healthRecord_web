@@ -6,7 +6,7 @@
 
 {% block content %}
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
       {% include '_user.tpl' %}
     </div>
   </div>
@@ -46,12 +46,6 @@
       </div>
 
       <button type="submit" class="btn btn-primary">Create case</button>
-      <button class="btn btn-primary" onclick="goBack()">Go Back</button>
+      <a class="btn btn-primary" href="{% url 'patient_detail' patient.id %}">Back to Patient detail </a>
   </div>
-
-    <script>
-    function goBack() {
-        window.history.back();
-    }
-    </script>
 {% endblock %}
