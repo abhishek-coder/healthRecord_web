@@ -19,30 +19,30 @@
       <div class="form-group">
         <label>Title</label>
         <input name="title" class="form-control" type="text"
-               placeholder="Enter case title">
+               placeholder="Hospital Name, clinic name, disease" required>
       </div>
 
       <div class="form-group">
         <label>Notes</label>
         <textarea name="notes" class="form-control"
-                  placeholder="Enter notes"></textarea>
+                  placeholder="Notes" required></textarea>
       </div>
 
       <div class="form-group">
         <label>Symptoms</label>
         <textarea name="symptoms" class="form-control"
-                  placeholder="Enter symptoms"></textarea>
+                  placeholder="Symptoms" required></textarea>
       </div>
 
       <div class="form-group">
         <label>Prescription</label>
         <textarea name="prescription" class="form-control"
-                  placeholder="Enter prescription"></textarea>
+                  placeholder="Prescription"></textarea>
       </div>
 
       <div class="form-group">
         <label>Upload Prescription</label>
-        <input  name="document" type="file">
+        <input  name="Document" type="file">
       </div>
 
       <button type="submit" class="btn btn-primary">Create case</button>
