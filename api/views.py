@@ -24,7 +24,7 @@ class CaseListAPI(View):
             patient = models.Patient.objects.get(id=int(patient_id))
         except models.Patient.DoesNotExist:
             return responses.Http401()
-        cases = models.Case.objects.filter(patient=patient)
+        cases = models.Case.objects.filter(patient=patient).order_by('-created')
 
         serializer = serializers.CaseListSerializer(cases)
 
